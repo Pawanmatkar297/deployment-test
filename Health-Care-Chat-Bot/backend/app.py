@@ -3,9 +3,15 @@ from flask_cors import CORS
 from chatbot import HealthcareChatbot
 import traceback
 import json
+import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:5000"]}})
+
+# Configure CORS based on environment
+if os.environ.get('FLASK_ENV') == 'production':
+    CORS(app)  # Allow all origins in production
+else:
+    CORS(app, resources={r"/*": {"origins": ["http://localhost:5000"]}})
 
 # Initialize chatbot
 chatbot = HealthcareChatbot()

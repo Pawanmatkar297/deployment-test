@@ -2,8 +2,10 @@
 # exit on error
 set -o errexit
 
-# Install Python dependencies
+echo "Installing dependencies..."
 pip install -r requirements.txt
 
-# Download NLTK data
-python -c "import nltk; nltk.download('punkt'); nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger'); nltk.download('stopwords')" 
+echo "Downloading NLTK data..."
+python -c "import nltk; nltk.download('punkt'); nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger'); nltk.download('stopwords')"
+
+echo "Build completed successfully!" 
