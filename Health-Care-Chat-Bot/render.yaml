@@ -2,8 +2,9 @@ services:
   - type: web
     name: healthcare-chatbot-backend
     env: python
-    buildCommand: pip install -r backend/requirements.txt
-    startCommand: cd backend && gunicorn app:app --bind 0.0.0.0:$PORT
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.13.1
@@ -12,4 +13,4 @@ services:
       - key: FLASK_ENV
         value: production
       - key: FLASK_APP
-        value: backend/app.py 
+        value: app.py 
