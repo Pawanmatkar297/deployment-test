@@ -3,6 +3,7 @@ import { FaHistory, FaRobot, FaUser, FaSignOutAlt, FaPaperPlane, FaMicrophone, F
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Chat.css';
+import config from '../config';
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
@@ -78,7 +79,7 @@ const Chat = () => {
                 headers['Content-Type'] = 'application/json';
             }
 
-            const response = await axios.post('http://localhost:5002/api/chat', 
+            const response = await axios.post(`${config.API_URL}/api/chat`, 
                 type === 'voice' ? data : JSON.stringify(data),
                 { 
                     headers,

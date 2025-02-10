@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 import { FaUser, FaLock, FaUserMd, FaArrowRight, FaRobot } from 'react-icons/fa';
+import config from '../config';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -17,7 +18,7 @@ const Login = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:5001/api/auth/login',
+            const response = await axios.post(`${config.API_URL}/api/auth/login`,
                 {
                     username,
                     password
@@ -38,6 +39,7 @@ const Login = () => {
                 setError(response.data.message || 'Login failed');
             }
         } catch (error) {
+            console.error('Login error:', error);
             setError(error.response?.data?.message || 'An error occurred during login');
         } finally {
             setIsLoading(false);

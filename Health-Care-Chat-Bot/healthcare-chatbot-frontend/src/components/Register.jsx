@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock, FaEnvelope, FaRobot, FaUserMd } from 'react-icons/fa';
 import axios from 'axios';
 import './Register.css';
+import config from '../config';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -27,7 +28,6 @@ const Register = () => {
         setError('');
         setIsLoading(true);
 
-        // Password validation
         if (formData.password !== formData.confirmPassword) {
             setError('Passwords do not match');
             setIsLoading(false);
@@ -41,7 +41,7 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:5001/api/auth/signup', 
+            const response = await axios.post(`${config.API_URL}/api/auth/signup`, 
                 {
                     username: formData.username,
                     email: formData.email,
@@ -64,6 +64,7 @@ const Register = () => {
                 setError(response.data.message || 'Registration failed');
             }
         } catch (error) {
+            console.error('Registration error:', error);
             setError(error.response?.data?.message || 'An error occurred during registration');
         } finally {
             setIsLoading(false);
