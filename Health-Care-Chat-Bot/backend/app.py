@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from chatbot import HealthcareChatbot
 import traceback
+import json
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": ["http://localhost:5000"]}})
@@ -11,6 +12,10 @@ chatbot = HealthcareChatbot()
 
 # Store symptoms for each session
 symptoms_dict = {}
+
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    return jsonify({"status": "healthy", "message": "Backend is running"}), 200
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
